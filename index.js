@@ -1,7 +1,16 @@
 import { prompt } from "./prompt.js";
 
 const displayWelcomeMsg = () => {
-  console.log("Wesh");
+  console.log(`--- BIENVENUE DANS LE JEU "NUMBER GUESSING" 🎮 ---
+  Règles :
+
+  1. Le système générera un nombre aléatoire entre 0 et 100.
+  2. Ta mission est de deviner ce nombre.
+  3. Entre un nombre lorsque le système le demande.
+  4. Le système vous indiquera si le nombre à trouver est + grand ou + petit que ta réponse.
+  5. Le jeu continue jusqu'à ce que tu trouves le bon nombre.
+  
+  Commençons ! 🚀`);
 };
 
 const generateRandomNumberBetween0and100 = () => {
@@ -17,35 +26,32 @@ const promptUserNumber = () => {
   return nbEntered;
 };
 
-const generateTargetNumber = (targetNb) => {
+const createTargetNumber = (targetNb) => {
   let nbAttempts = 0;
-  console.log({ targetNb });
   const compareUserAnswer = (userNb) => {
     if (userNb < targetNb) {
       console.log("Le nombre à trouver est + grand");
       nbAttempts++;
-      console.log({ nbAttempts });
       let userNumber = promptUserNumber();
       return compareUserAnswer(userNumber);
     }
     if (userNb > targetNb) {
       console.log("Le nombre à trouver est + petit");
       nbAttempts++;
-      console.log({ nbAttempts });
       let userNumber = promptUserNumber();
       return compareUserAnswer(userNumber);
     }
     nbAttempts++;
-    console.log({ nbAttempts });
     console.log("BRAVO! Tu as réussi en", nbAttempts, "coup(s)");
     return true;
   };
-  console.log({ nbAttempts });
   return compareUserAnswer;
 };
 
-// Le concept est simple. Au début du script, notre application va générer un nombre aléatoire entre 0 et 100 qu'on va appeler userNumber
-const targetNumber = generateTargetNumber(generateRandomNumberBetween0and100());
+// DEBUT DU PROGRAMME
+displayWelcomeMsg();
+const targetNumber = generateRandomNumberBetween0and100();
+const diffNumbers = createTargetNumber(targetNumber);
 
-let userNumber = promptUserNumber();
-const nbEntreParUser = targetNumber(userNumber);
+const userNumber = promptUserNumber();
+diffNumbers(userNumber);
