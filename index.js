@@ -43,15 +43,36 @@ const createTargetNumber = (targetNb) => {
     }
     nbAttempts++;
     console.log("BRAVO! Tu as réussi en", nbAttempts, "coup(s)");
+    restartGame();
     return true;
   };
   return compareUserAnswer;
 };
 
-// DEBUT DU PROGRAMME
-displayWelcomeMsg();
-const targetNumber = generateRandomNumberBetween0and100();
-const diffNumbers = createTargetNumber(targetNumber);
+const restartGame = () => {
+  const restartUser = prompt("Veux-tu recommencer la partie (y/n) ? ");
+  switch (restartUser) {
+    case "y":
+      console.log("C'est reparti");
+      playGame();
+      break;
+    case "n":
+      console.log("A bientôt");
+      break;
+    default:
+      console.log("A bientôt");
+      break;
+  }
+};
 
-const userNumber = promptUserNumber();
-diffNumbers(userNumber);
+const playGame = () => {
+  // DEBUT DU PROGRAMME
+  displayWelcomeMsg();
+  let targetNumber = generateRandomNumberBetween0and100();
+  const diffNumbers = createTargetNumber(targetNumber);
+
+  const userNumber = promptUserNumber();
+  diffNumbers(userNumber);
+};
+
+playGame();
